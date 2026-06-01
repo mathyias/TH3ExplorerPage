@@ -1,62 +1,127 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH3 Explorer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
-    <script defer src="app.js"></script>
+<title>TH3 Explorer</title>
+
+<link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
 </head>
+
 <body>
 
-<div class="container">
+<div class="bg"></div>
 
-    <header>
-        <h1>TH3 Explorer</h1>
-        <p>Official TH3 Blockchain Explorer</p>
-    </header>
+<nav>
+    <div class="logo">TH3</div>
 
-    <section class="stats">
+```
+<div class="network-status">
+    <span class="status-dot"></span>
+    Network Online
+</div>
+```
 
-        <div class="card">
-            <h3>Height</h3>
-            <span id="height">Loading...</span>
-        </div>
+</nav>
 
-        <div class="card">
-            <h3>Peers</h3>
-            <span id="peers">Loading...</span>
-        </div>
+<section class="hero">
 
-        <div class="card">
-            <h3>Difficulty</h3>
-            <span id="difficulty">Loading...</span>
-        </div>
+```
+<div class="hero-content">
 
-    </section>
+    <h1>TH3</h1>
 
-    <section class="blocks-section">
+    <h2>Explore Information</h2>
 
-        <h2>Latest Blocks</h2>
+    <p>
+        The value of information.
+    </p>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Height</th>
-                    <th>Hash</th>
-                    <th>Transactions</th>
-                </tr>
-            </thead>
+    <div class="search-container">
 
-            <tbody id="blocksTable">
-            </tbody>
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search block height...">
 
-        </table>
+        <button id="searchBtn">
+            Search
+        </button>
 
-    </section>
+    </div>
 
 </div>
+```
+
+</section>
+
+<section class="stats">
+
+```
+<div class="glass-card">
+    <span>HEIGHT</span>
+    <h3 id="height">...</h3>
+</div>
+
+<div class="glass-card">
+    <span>PEERS</span>
+    <h3 id="peers">...</h3>
+</div>
+
+<div class="glass-card">
+    <span>DIFFICULTY</span>
+    <h3 id="difficulty">...</h3>
+</div>
+```
+
+</section>
+
+<section class="blocks-wrapper">
+
+```
+<div class="section-header">
+
+    <h2>Latest Blocks</h2>
+
+    <span>Live blockchain feed</span>
+
+</div>
+
+<div id="blocksContainer">
+
+</div>
+```
+
+</section>
+
+<section class="block-details">
+
+```
+<div id="blockDetails">
+
+    Select block to view details
+
+</div>
+```
+
+</section>
+
+<footer>
+
+```
+<div>
+    TH3 Blockchain Explorer
+</div>
+
+<div>
+    Powered by api.th3chain.cloud
+</div>
+```
+
+</footer>
 
 </body>
 </html>
