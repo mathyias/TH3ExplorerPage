@@ -2,12 +2,13 @@
 
 :root {
     --neon: #00f2ff;
-    --bg: #000000;
-    --panel: rgba(255, 255, 255, 0.05);
+    --panel: rgba(255, 255, 255, 0.1); /* Lekko przejrzyste panele */
 }
 
 body {
-    background: radial-gradient(circle at 50% -20%, #1c1c1e 0%, #000000 60%);
+    /* Normalna tapeta w tle */
+    background: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2070') no-repeat center center fixed;
+    background-size: cover;
     color: #fff;
     font-family: 'Space Grotesk', sans-serif;
     margin: 0; padding: 40px;
@@ -18,8 +19,8 @@ body {
 
 .glass-box {
     background: var(--panel);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 30px; border-radius: 20px;
     margin-bottom: 20px;
 }
@@ -29,7 +30,7 @@ body {
 .status-pill { color: var(--neon); font-size: 12px; }
 
 input { 
-    background: #000; border: 1px solid var(--neon); 
+    background: rgba(0,0,0,0.3); border: 1px solid var(--neon); 
     color: var(--neon); padding: 15px; border-radius: 10px; width: 250px; 
 }
 
@@ -39,13 +40,12 @@ button {
 }
 
 .block-item { 
-    padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); 
+    padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); 
     cursor: pointer; transition: 0.3s; 
 }
-.block-item:hover { background: rgba(0, 229, 255, 0.1); border-left: 3px solid var(--neon); }
+.block-item:hover { background: rgba(0, 242, 255, 0.2); border-left: 3px solid var(--neon); }
 
-/* Tabela danych */
 .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-.data-table td { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.label { color: rgba(255,255,255,0.5); font-size: 12px; width: 30%; }
-.value { color: var(--neon); font-family: monospace; font-size: 14px; }
+.data-table td { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.label { color: rgba(255,255,255,0.6); font-size: 12px; width: 30%; }
+.value { color: #fff; font-family: monospace; font-size: 14px; }
