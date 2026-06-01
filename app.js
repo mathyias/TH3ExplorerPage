@@ -1,27 +1,35 @@
 const API = "https://api.th3chain.cloud";
 
-async function loadBlocks() {
-    try {
-        const response = await fetch(`${API}/api/latest-blocks`);
-        const blocks = await response.json();
-        const container = document.getElementById("blocksContainer");
-        container.innerHTML = ""; // Czyści obecne dane
-
-        blocks.forEach(block => {
-            const card = document.createElement("div");
-            card.className = "block-card";
-            card.innerHTML = `
-                <div style="color: var(--accent)">#${block.height}</div>
-                <div style="font-size: 12px; opacity: 0.6">${block.hash.substring(0,20)}...</div>
-            `;
-            card.onclick = () => loadBlock(block.height);
-            container.appendChild(card);
-        });
-    } catch(err) { console.error(err); }
+async function loadNetwork() {
+    const res = await fetch(`${API}/api/network`);
+    const data = await res.json();
+    document.getElementById("height").textContent = data.height;
+    document.getElementById("peers").textContent = data.peers;
+    document.getElementById("difficulty").textContent = Number(data.difficulty).toExponential(2);
 }
 
-// Reszta Twoich funkcji: loadNetwork(), loadBlock() zostają bez zmian.
-// Wywołujemy je na końcu:
+async function loadBlocks() {
+    const res = await fetch(`${API}/api/latest-blocks`);
+    const blocks = await res.json();
+    const container = document.getElementById("blocksContainer");
+    container.innerHTML = "";
+    blocks.forEach(block => {
+        const div = document.createElement("div");
+        div.className = "block-card";
+        div.innerHTML = `<strong>#${block.height}</strong><br><small>${block.hash.substring(0,20)}...</small>`;
+        div.onclick = () => loadBlock(block.height);
+        container.appendChild(div);
+    });
+}
+
+async function loadBlock(h) {
+    const res = await fetch(`${API}/api/block-height/${h}`);
+    const b = await res.json();
+    document.getElementById("blockDetails").innerHTML = `<pre>${JSON.stringify(b, null, 2)}</pre>`;
+}
+
+document.getElementById("searchBtn").onclick = () => loadBlock(document.getElementById("searchInput").value);
+
 loadNetwork();
 loadBlocks();
 setInterval(loadBlocks, 10000);
