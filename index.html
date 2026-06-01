@@ -7,40 +7,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-
+    <div class="orb"></div>
+    
     <header>
         <div class="logo">TH3</div>
-        <div class="status">● ONLINE</div>
+        <div class="status-pill">● SYSTEM ONLINE</div>
     </header>
 
     <main>
         <section class="hero">
             <h1>Liquid Explorer</h1>
-            <div class="search">
+            <div class="search-box">
                 <input id="searchInput" type="text" placeholder="Wpisz wysokość bloku...">
-                <button id="searchBtn">SZUKAJ</button>
+                <button id="searchBtn">SEARCH</button>
             </div>
         </section>
 
-        <section class="stats">
-            <div class="card"><span>HEIGHT</span><h2 id="height">--</h2></div>
-            <div class="card"><span>PEERS</span><h2 id="peers">--</h2></div>
-            <div class="card"><span>DIFFICULTY</span><h2 id="difficulty">--</h2></div>
+        <section class="stats-grid">
+            <div class="glass-card"><span>HEIGHT</span><h2 id="height">--</h2></div>
+            <div class="glass-card"><span>PEERS</span><h2 id="peers">--</h2></div>
+            <div class="glass-card"><span>DIFFICULTY</span><h2 id="difficulty">--</h2></div>
         </section>
 
-        <section class="grid">
-            <div class="panel">
+        <section class="content-grid">
+            <div class="glass-panel">
                 <h3>LATEST BLOCKS</h3>
                 <div id="blocksContainer"></div>
             </div>
-            <div class="panel">
-                <h3>DETAILS</h3>
-                <div id="blockDetails">Wybierz blok z listy...</div>
+            <div class="glass-panel" id="blockDetails">
+                <div class="empty-state">Wybierz blok z listy, aby zobaczyć szczegóły.</div>
             </div>
         </section>
     </main>
+
     <script src="app.js"></script>
 </body>
 </html>

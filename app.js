@@ -13,11 +13,11 @@ async function loadBlocks() {
     const blocks = await res.json();
     const container = document.getElementById("blocksContainer");
     container.innerHTML = "";
-    blocks.forEach(block => {
+    blocks.forEach(b => {
         const div = document.createElement("div");
         div.className = "block-card";
-        div.innerHTML = `<strong>#${block.height}</strong><br><small>${block.hash.substring(0,20)}...</small>`;
-        div.onclick = () => loadBlock(block.height);
+        div.innerHTML = `<strong>#${b.height}</strong><br><small style="color:var(--muted)">${b.hash.substring(0,16)}...</small>`;
+        div.onclick = () => loadBlock(b.height);
         container.appendChild(div);
     });
 }
@@ -25,11 +25,18 @@ async function loadBlocks() {
 async function loadBlock(h) {
     const res = await fetch(`${API}/api/block-height/${h}`);
     const b = await res.json();
-    document.getElementById("blockDetails").innerHTML = `<pre>${JSON.stringify(b, null, 2)}</pre>`;
+    document.getElementById("blockDetails").innerHTML = `
+        <h3 style="margin-bottom:20px;">Block #${b.height}</h3>
+        <div class="details-grid">
+            <div class="detail-item"><span>HASH</span><p>${b.hash.substring(0,12)}...</p></div>
+            <div class="detail-item"><span>TXS</span><p>${b.tx.length}</p></div>
+            <div class="detail-item"><span>SIZE</span><p>${b.size} B</p></div>
+            <div class="detail-item"><span>DIFFICULTY</span><p>${Number(b.difficulty).toExponential(2)}</p></div>
+        </div>
+    `;
 }
 
 document.getElementById("searchBtn").onclick = () => loadBlock(document.getElementById("searchInput").value);
-
 loadNetwork();
 loadBlocks();
 setInterval(loadBlocks, 10000);
