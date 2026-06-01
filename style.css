@@ -2,7 +2,7 @@
 
 :root {
     --neon: #00f2ff;
-    --bg: #050505;
+    --bg: #030712; /* Tło z TH3CHAIN */
     --panel: rgba(255, 255, 255, 0.03);
 }
 
@@ -12,6 +12,7 @@ body {
     font-family: 'Space Grotesk', sans-serif;
     margin: 0; padding: 40px;
     display: flex; justify-content: center;
+    background-image: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
 }
 
 .main-container { width: 100%; max-width: 1200px; }
@@ -42,7 +43,6 @@ button {
     padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); 
     cursor: pointer; transition: 0.3s; 
 }
-
 .block-item:hover { background: rgba(0, 242, 255, 0.1); border-left: 3px solid var(--neon); }
 
 pre { color: var(--neon); overflow-x: auto; font-size: 13px; }
