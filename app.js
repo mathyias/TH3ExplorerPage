@@ -1,5 +1,6 @@
 const API = "https://api.th3chain.cloud";
 
+// Funkcja do obsługi mobilnego menu
 function toggleMenu() {
     document.getElementById("navMenu").classList.toggle("active");
 }
@@ -10,6 +11,7 @@ async function loadBlocks() {
         const blocks = await res.json();
         const cont = document.getElementById("blocksContainer");
         cont.innerHTML = "<h3>LATEST_BLOCKS</h3>";
+        
         blocks.forEach(b => {
             const el = document.createElement("div");
             el.className = "block-item";
@@ -17,13 +19,14 @@ async function loadBlocks() {
             el.onclick = () => loadBlock(b.height);
             cont.appendChild(el);
         });
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error("Error loading blocks:", e); }
 }
 
 async function loadBlock(h) {
     try {
         const res = await fetch(`${API}/api/block-height/${h}`);
         const b = await res.json();
+        
         document.getElementById("blockDetails").innerHTML = `
             <h3>BLOCK_DATA: #${b.height}</h3>
             <table class="data-table">
@@ -33,12 +36,14 @@ async function loadBlock(h) {
                 <tr><td class="label">MERKLE</td><td class="value" style="word-break:break-all">${b.merkleroot}</td></tr>
             </table>
         `;
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error("Error loading block details:", e); }
 }
 
+// Obsługa przycisku wyszukiwania
 document.getElementById("searchBtn").onclick = () => {
     const val = document.getElementById("searchInput").value;
     if(val) loadBlock(val);
 };
 
+// Inicjalizacja listy bloków
 loadBlocks();
