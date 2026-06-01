@@ -24,8 +24,12 @@ body {
     margin-bottom: 20px;
 }
 
-.grid-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
+.header-flex { display: flex; justify-content: space-between; align-items: center; }
+.hamburger { display: none; cursor: pointer; font-size: 24px; color: var(--neon); }
+#navMenu { display: flex; gap: 20px; }
+#navMenu a { color: #fff; text-decoration: none; font-size: 12px; font-weight: bold; }
 
+.grid-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
 .status-pill { color: var(--neon); font-size: 12px; }
 
 input { 
@@ -49,21 +53,12 @@ button {
 .label { color: rgba(255,255,255,0.6); font-size: 12px; width: 30%; }
 .value { color: #fff; font-family: monospace; font-size: 14px; }
 
-/* RESPONSYWNOŚĆ DLA TELEFONÓW */
 @media (max-width: 768px) {
     body { padding: 15px; }
     .grid-layout { grid-template-columns: 1fr; gap: 15px; }
     .glass-box { padding: 20px; }
     input { width: 100%; margin-bottom: 10px; display: block; box-sizing: border-box; }
     button { width: 100%; }
-}
-
-.header-flex { display: flex; justify-content: space-between; align-items: center; }
-.hamburger { display: none; cursor: pointer; font-size: 24px; color: var(--neon); }
-#navMenu { display: flex; gap: 20px; }
-#navMenu a { color: #fff; text-decoration: none; font-size: 12px; font-weight: bold; }
-
-@media (max-width: 768px) {
     .hamburger { display: block; }
     #navMenu { 
         display: none; flex-direction: column; 
