@@ -2,111 +2,28 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH3 | Liquid System</title>
-    <style>
-        /* CSS WBUDOWANY DLA PEWNOŚCI */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-        
-        body {
-            background: #000;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
-        
-        .block-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        input {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            color: white;
-            width: 200px;
-        }
-
-        button {
-            background: #0A84FF;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-        }
-    </style>
+    <title>TH3 // NETWORK_CORE</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <header style="display:flex; justify-content:space-between; margin-bottom:40px;">
-        <h1>TH3 Explorer</h1>
-        <div style="background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 20px;">● ONLINE</div>
+<div class="main-container">
+    <header class="glass-box">
+        <h1>TH3 // NETWORK_CORE</h1>
+        <div class="status-pill">● ACTIVE_SYNC</div>
     </header>
 
-    <section class="glass">
-        <input id="searchInput" placeholder="Wysokość bloku...">
-        <button id="searchBtn">SZUKAJ</button>
+    <section class="glass-box search-bar">
+        <input id="searchInput" placeholder="ENTER_BLOCK_HEIGHT...">
+        <button id="searchBtn">EXECUTE</button>
     </section>
 
-    <div class="grid">
-        <div class="glass" id="blocksContainer"><h3>BLOKI</h3></div>
-        <div class="glass" id="blockDetails"><h3>SZCZEGÓŁY</h3></div>
+    <div class="grid-layout">
+        <div class="glass-box" id="blocksContainer"><h3>LATEST_BLOCKS</h3></div>
+        <div class="glass-box" id="blockDetails"><h3>SYSTEM_READY</h3></div>
     </div>
 </div>
 
-<script>
-    /* JS WBUDOWANY */
-    const API = "https://api.th3chain.cloud";
-    
-    async function loadBlocks() {
-        const res = await fetch(`${API}/api/latest-blocks`);
-        const blocks = await res.json();
-        const container = document.getElementById("blocksContainer");
-        blocks.forEach(b => {
-            const div = document.createElement("div");
-            div.className = "block-card";
-            div.innerHTML = `<strong>#${b.height}</strong>`;
-            div.onclick = () => loadBlock(b.height);
-            container.appendChild(div);
-        });
-    }
-
-    async function loadBlock(h) {
-        const res = await fetch(`${API}/api/block-height/${h}`);
-        const b = await res.json();
-        document.getElementById("blockDetails").innerHTML = `<h3>Block #${b.height}</h3><p>Hash: ${b.hash.substring(0,10)}...</p>`;
-    }
-
-    document.getElementById("searchBtn").onclick = () => loadBlock(document.getElementById("searchInput").value);
-    loadBlocks();
-</script>
+<script src="app.js"></script>
 </body>
 </html>
