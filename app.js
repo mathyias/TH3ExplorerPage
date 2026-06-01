@@ -2,11 +2,13 @@ const API = "https://api.th3chain.cloud";
 
 async function loadNetwork() {
 
-```
 try {
 
-    const response = await fetch(`${API}/api/network`);
-    const data = await response.json();
+    const response =
+        await fetch(`${API}/api/network`);
+
+    const data =
+        await response.json();
 
     document.getElementById("height").textContent =
         data.height;
@@ -17,16 +19,16 @@ try {
     document.getElementById("difficulty").textContent =
         Number(data.difficulty).toExponential(2);
 
-} catch (err) {
+} catch(err) {
+
     console.error(err);
+
 }
-```
 
 }
 
 async function loadBlocks() {
 
-```
 try {
 
     const response =
@@ -48,13 +50,16 @@ try {
         card.className =
             "block-card";
 
+        const shortHash =
+            block.hash.substring(0,24) + "...";
+
         card.innerHTML = `
             <div class="block-height">
-                #${block.height}
+                Block #${block.height}
             </div>
 
             <div class="block-hash">
-                ${block.hash}
+                ${shortHash}
             </div>
 
             <div class="block-tx">
@@ -71,18 +76,16 @@ try {
 
     });
 
-} catch (err) {
+} catch(err) {
 
     console.error(err);
 
 }
-```
 
 }
 
 async function loadBlock(height) {
 
-```
 try {
 
     const response =
@@ -97,44 +100,58 @@ try {
         "blockDetails"
     ).innerHTML = `
 
-        <h2>
+        <h2 style="margin-bottom:20px;">
             Block #${block.height}
         </h2>
 
+        <strong>Hash</strong>
         <br>
-
-        <b>Hash</b><br>
         ${block.hash}
 
         <br><br>
 
-        <b>Previous Block</b><br>
+        <strong>Previous Block</strong>
+        <br>
         ${block.previousblockhash || "Genesis"}
 
         <br><br>
 
-        <b>Transactions</b><br>
+        <strong>Transactions</strong>
+        <br>
         ${block.tx.length}
 
         <br><br>
 
-        <b>Difficulty</b><br>
+        <strong>Difficulty</strong>
+        <br>
         ${block.difficulty}
 
         <br><br>
 
-        <b>Time</b><br>
+        <strong>Confirmations</strong>
+        <br>
+        ${block.confirmations}
+
+        <br><br>
+
+        <strong>Block Size</strong>
+        <br>
+        ${block.size}
+
+        <br><br>
+
+        <strong>Timestamp</strong>
+        <br>
         ${new Date(
             block.time * 1000
         ).toLocaleString()}
     `;
 
-} catch (err) {
+} catch(err) {
 
     console.error(err);
 
 }
-```
 
 }
 
@@ -142,25 +159,48 @@ document
 .getElementById("searchBtn")
 .addEventListener(
 "click",
-async () => {
+() => {
 
-```
     const value =
         document
         .getElementById("searchInput")
         .value
         .trim();
 
-    if (!value) return;
+    if(!value) return;
 
     loadBlock(value);
+
 }
-```
+
+);
+
+document
+.getElementById("searchInput")
+.addEventListener(
+"keypress",
+(e) => {
+
+    if(e.key === "Enter") {
+
+        const value =
+            document
+            .getElementById("searchInput")
+            .value
+            .trim();
+
+        if(!value) return;
+
+        loadBlock(value);
+
+    }
+
+}
 
 );
 
 loadNetwork();
 loadBlocks();
 
-setInterval(loadNetwork, 15000);
-setInterval(loadBlocks, 15000);
+setInterval(loadNetwork,10000);
+setInterval(loadBlocks,10000);
