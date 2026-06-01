@@ -1,108 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-:root{
---bg:#050816;
---glass:rgba(255,255,255,.08);
---border:rgba(255,255,255,.12);
-
-
---purple:#8b5cf6;
---purple2:#a855f7;
-
---text:#ffffff;
---muted:#94a3b8;
-
-
+:root {
+    --bg: #f5f5f7;
+    --glass: rgba(255, 255, 255, 0.7);
+    --accent: #0071e3;
+    --text: #1d1d1f;
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    margin: 0;
+    min-height: 100vh;
 }
 
-body{
-font-family:'Inter',sans-serif;
-background:var(--bg);
-color:var(--text);
-min-height:100vh;
-overflow-x:hidden;
+/* Płynne szkło */
+.glass-card, .glass-panel {
+    background: var(--glass);
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.orb{
-position:fixed;
-border-radius:50%;
-filter:blur(120px);
-z-index:-1;
+.orb {
+    position: fixed;
+    width: 400px; height: 400px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    animation: float 20s infinite alternate;
 }
 
-.orb-1{
-width:500px;
-height:500px;
-background:#8b5cf6;
-top:-150px;
-left:-100px;
-opacity:.25;
+@keyframes float {
+    from { transform: translate(-10%, -10%); }
+    to { transform: translate(10%, 10%); }
 }
 
-.orb-2{
-width:450px;
-height:450px;
-background:#a855f7;
-top:100px;
-right:-100px;
-opacity:.2;
+.block-card {
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.orb-3{
-width:600px;
-height:600px;
-background:#4338ca;
-bottom:-250px;
-left:20%;
-opacity:.15;
-}
-
-header{
-max-width:1500px;
-margin:auto;
-padding:30px 40px;
-
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-
-}
-
-.logo{
-font-size:42px;
-font-weight:900;
-letter-spacing:2px;
-}
-
-.network-pill{
-display:flex;
-align-items:center;
-gap:10px;
-
-
-padding:12px 18px;
-
-border-radius:999px;
-
-background:var(--glass);
-border:1px solid var(--border);
-
-backdrop-filter:blur(30px);
-
-
-}
-
-.pulse{
-width:10px;
-height:10px;
-border-radius:50%;
-background:#22c55e;
-}
+.block-card:hover { transform: scale(1.02); }

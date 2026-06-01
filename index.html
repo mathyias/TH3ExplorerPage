@@ -1,143 +1,45 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TH3 Explorer</title>
-
-<link rel="stylesheet" href="style.css">
-<script defer src="app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH3 | Liquid Explorer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-
-<header>
-
-
-<div class="logo">
-    TH3
-</div>
-
-<div class="network-pill">
-    <div class="pulse"></div>
-    ONLINE
-</div>
-
-
-</header>
-
-<main>
-
-
-<section class="hero-card">
-
-    <div class="hero-top">
-
-        <span class="tag">
-            TH3 BLOCKCHAIN
-        </span>
-
-        <h1>
-            TH3 Explorer
-        </h1>
-
-        <p>
-            Real-time blockchain intelligence.
-        </p>
-
-    </div>
-
-    <div class="search-wrapper">
-
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="Search block height...">
-
-        <button id="searchBtn">
-            Search
-        </button>
-
-    </div>
-
-</section>
-
-<section class="stats-grid">
-
-    <div class="glass-card">
-        <span>HEIGHT</span>
-        <h2 id="height">...</h2>
-    </div>
-
-    <div class="glass-card">
-        <span>PEERS</span>
-        <h2 id="peers">...</h2>
-    </div>
-
-    <div class="glass-card">
-        <span>DIFFICULTY</span>
-        <h2 id="difficulty">...</h2>
-    </div>
-
-    <div class="glass-card">
-        <span>STATUS</span>
-        <h2>LIVE</h2>
-    </div>
-
-</section>
-
-<section class="content-grid">
-
-    <div class="glass-panel">
-
-        <div class="panel-header">
-            Latest Blocks
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    
+    <header>
+        <div class="logo">TH3</div>
+        <div class="network-pill">
+            <div class="pulse"></div>
+            <span>LIVE</span>
         </div>
+    </header>
 
-        <div id="blocksContainer">
+    <main>
+        <section class="hero-card">
+            <span class="tag">TH3 BLOCKCHAIN</span>
+            <h1>Liquid Explorer</h1>
+            <div class="search-wrapper">
+                <input id="searchInput" type="text" placeholder="Wyszukaj wysokość bloku...">
+                <button id="searchBtn">Szukaj</button>
+            </div>
+        </section>
 
-        </div>
+        <section class="stats-grid" id="stats">
+            <div class="glass-card"><span>HEIGHT</span><h2 id="height">-</h2></div>
+            <div class="glass-card"><span>PEERS</span><h2 id="peers">-</h2></div>
+            <div class="glass-card"><span>DIFFICULTY</span><h2 id="difficulty">-</h2></div>
+        </section>
 
-    </div>
+        <section class="content-grid">
+            <div class="glass-panel"><div class="panel-header">Latest Blocks</div><div id="blocksContainer"></div></div>
+            <div class="glass-panel"><div class="panel-header">Details</div><div id="blockDetails">Wybierz blok...</div></div>
+        </section>
+    </main>
 
-    <div class="glass-panel">
-
-        <div class="panel-header">
-            Block Details
-        </div>
-
-        <div id="blockDetails">
-
-            Select a block to inspect details.
-
-        </div>
-
-    </div>
-
-</section>
-
-
-</main>
-
-<footer>
-
-
-<span>
-    TH3 Explorer
-</span>
-
-<span>
-    Powered by TH3Chain
-</span>
-
-
-</footer>
-
+    <script src="app.js"></script>
 </body>
 </html>
