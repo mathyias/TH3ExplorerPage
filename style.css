@@ -57,3 +57,19 @@ button {
     input { width: 100%; margin-bottom: 10px; display: block; box-sizing: border-box; }
     button { width: 100%; }
 }
+
+.header-flex { display: flex; justify-content: space-between; align-items: center; }
+.hamburger { display: none; cursor: pointer; font-size: 24px; color: var(--neon); }
+#navMenu { display: flex; gap: 20px; }
+#navMenu a { color: #fff; text-decoration: none; font-size: 12px; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .hamburger { display: block; }
+    #navMenu { 
+        display: none; flex-direction: column; 
+        background: #000; padding: 20px; border-radius: 15px;
+        position: absolute; top: 80px; left: 15px; right: 15px; 
+        border: 1px solid var(--neon); z-index: 100;
+    }
+    #navMenu.active { display: flex; }
+}

@@ -1,5 +1,9 @@
 const API = "https://api.th3chain.cloud";
 
+function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+}
+
 async function loadBlocks() {
     try {
         const res = await fetch(`${API}/api/latest-blocks`);
