@@ -2,44 +2,29 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH3 | Liquid Explorer</title>
+    <title>TH3 | Liquid System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="orb"></div>
-    
+<main>
     <header>
-        <div class="logo">TH3</div>
-        <div class="status-pill">● SYSTEM ONLINE</div>
+        <div style="font-weight:700; font-size:24px;">TH3 Explorer</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.6);">● SYSTEM ONLINE</div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Liquid Explorer</h1>
-            <div class="search-box">
-                <input id="searchInput" type="text" placeholder="Wpisz wysokość bloku...">
-                <button id="searchBtn">SEARCH</button>
-            </div>
-        </section>
+    <section class="glass" style="margin-bottom:20px;">
+        <h1 style="margin:0 0 20px 0;">Liquid Intelligence</h1>
+        <div style="display:flex; gap:10px;">
+            <input id="searchInput" placeholder="Wpisz wysokość...">
+            <button id="searchBtn">Szukaj</button>
+        </div>
+    </section>
 
-        <section class="stats-grid">
-            <div class="glass-card"><span>HEIGHT</span><h2 id="height">--</h2></div>
-            <div class="glass-card"><span>PEERS</span><h2 id="peers">--</h2></div>
-            <div class="glass-card"><span>DIFFICULTY</span><h2 id="difficulty">--</h2></div>
-        </section>
-
-        <section class="content-grid">
-            <div class="glass-panel">
-                <h3>LATEST BLOCKS</h3>
-                <div id="blocksContainer"></div>
-            </div>
-            <div class="glass-panel" id="blockDetails">
-                <div class="empty-state">Wybierz blok z listy, aby zobaczyć szczegóły.</div>
-            </div>
-        </section>
-    </main>
-
-    <script src="app.js"></script>
+    <div class="grid-layout">
+        <div class="glass" id="blocksContainer" style="overflow-y:auto; max-height:60vh;"></div>
+        <div class="glass" id="blockDetails">Wybierz blok z listy...</div>
+    </div>
+</main>
+<script src="app.js"></script>
 </body>
 </html>
