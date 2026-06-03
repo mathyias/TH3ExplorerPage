@@ -151,7 +151,7 @@ loadBlock(value);
 return;
 }
 
-if(/^R[a-zA-Z0-9]{25,40}$/.test(value)){
+if(/^[RT][a-zA-Z0-9]{25,40}$/.test(value)){
 loadAddress(value);
 return;
 }
