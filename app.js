@@ -20,12 +20,27 @@ function setSearch(value) {
   if (input) input.value = value;
 }
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 function txLink(txid) {
-  return `<span class="linkish" onclick="loadTx('${txid}')">${short(txid)}</span>`;
+  const clean = escapeHtml(txid);
+  return `<span class="linkish" onclick="loadTx('${clean}')">${short(clean)}</span>`;
 }
 
 function addressLink(address) {
-  return `<span class="linkish" onclick="loadAddress('${address}')">${address}</span>`;
+  const clean = escapeHtml(address);
+  return `<span class="linkish" onclick="loadAddress('${clean}')">${clean}</span>`;
+}
+
+function setRoute(path) {
+  history.replaceState(null, '', path);
 }
 
 async function loadBlocks() {
@@ -67,18 +82,20 @@ async function loadBlock(height) {
         <tr><td class="label">HEIGHT</td><td>${b.height}</td></tr>
         <tr><td class="label">TXS</td><td>${b.tx.length}</td></tr>
         <tr><td class="label">TIME</td><td>${new Date(b.time * 1000).toLocaleString()}</td></tr>
-        <tr><td class="label">HASH</td><td class="value">${b.hash}</td></tr>
-        <tr><td class="label">MERKLE</td><td class="value">${b.merkleroot}</td></tr>
+        <tr><td class="label">HASH</td><td class="value">${escapeHtml(b.hash)}</td></tr>
+        <tr><td class="label">MERKLE</td><td class="value">${escapeHtml(b.merkleroot)}</td></tr>
       </table>
 
       <h3 style="margin-top:22px">TRANSACTIONS</h3>
 
       ${b.tx.map((tx) => `
-        <div class="block-item" onclick="loadTx('${tx}')">
-          ${tx}
+        <div class="block-item" onclick="loadTx('${escapeHtml(tx)}')">
+          ${escapeHtml(tx)}
         </div>
       `).join('')}
     `);
+
+    setRoute(`/block/${b.hash}`);
   } catch (e) {
     console.error(e);
     setDetails('<h3>BLOCK NOT FOUND</h3>');
@@ -109,7 +126,9 @@ async function loadTx(txid) {
     const tx = await res.json();
 
     const outputs = tx.vout || [];
+    const inputs = tx.vin || [];
     const totalOut = outputs.reduce((sum, out) => sum + Number(out.value || 0), 0);
+    const confirmed = Number(tx.confirmations || 0) > 0;
 
     setDetails(`
       <div class="detail-head">
@@ -117,56 +136,70 @@ async function loadTx(txid) {
           <h3>TRANSACTION</h3>
           <div class="subtle">${short(tx.txid, 18, 12)}</div>
         </div>
-        <div class="${(tx.confirmations || 0) > 0 ? 'status-good' : 'status-wait'}">
-          ${(tx.confirmations || 0) > 0 ? 'CONFIRMED' : 'PENDING'}
+
+        <div class="${confirmed ? 'status-good' : 'status-wait'}">
+          ${confirmed ? 'CONFIRMED' : 'PENDING'}
         </div>
       </div>
 
       <table class="data-table">
-        <tr><td class="label">TXID</td><td class="value">${tx.txid}</td></tr>
+        <tr><td class="label">TXID</td><td class="value">${escapeHtml(tx.txid)}</td></tr>
         <tr><td class="label">CONFIRMATIONS</td><td>${tx.confirmations || 0}</td></tr>
         <tr><td class="label">SIZE</td><td>${tx.size || 0} bytes</td></tr>
+        <tr><td class="label">VERSION</td><td>${tx.version ?? '-'}</td></tr>
         <tr><td class="label">LOCKTIME</td><td>${tx.locktime ?? 0}</td></tr>
         <tr><td class="label">TOTAL OUT</td><td>${th3(totalOut)}</td></tr>
-        ${tx.blockhash ? `<tr><td class="label">BLOCK</td><td class="value">${tx.blockhash}</td></tr>` : ''}
+        ${tx.blockhash ? `<tr><td class="label">BLOCK</td><td class="value">${escapeHtml(tx.blockhash)}</td></tr>` : ''}
         ${tx.time ? `<tr><td class="label">TIME</td><td>${new Date(tx.time * 1000).toLocaleString()}</td></tr>` : ''}
       </table>
 
       <h3 style="margin-top:22px">INPUTS</h3>
-      ${(tx.vin || []).map((input, index) => `
+
+      ${inputs.length ? inputs.map((input, index) => `
         <div class="tx-card">
           <div class="tx-card-title">Input #${index}</div>
+
           ${input.coinbase ? `
             <div class="subtle">Coinbase reward</div>
           ` : `
             <table class="data-table compact">
-              <tr><td class="label">TXID</td><td class="value">${input.txid}</td></tr>
+              <tr><td class="label">PREV TX</td><td>${txLink(input.txid)}</td></tr>
               <tr><td class="label">VOUT</td><td>${input.vout}</td></tr>
+              <tr><td class="label">SEQUENCE</td><td>${input.sequence ?? '-'}</td></tr>
             </table>
           `}
         </div>
-      `).join('')}
+      `).join('') : '<div class="empty-state">No inputs</div>'}
 
       <h3 style="margin-top:22px">OUTPUTS</h3>
-      ${outputs.map((out) => {
+
+      ${outputs.length ? outputs.map((out) => {
         const addresses = out.scriptPubKey?.addresses || [];
+        const scriptType = out.scriptPubKey?.type || 'unknown';
+
         return `
           <div class="tx-card">
             <div class="tx-card-title">Output #${out.n}</div>
+
             <table class="data-table compact">
               <tr><td class="label">VALUE</td><td>${th3(out.value)}</td></tr>
+              <tr><td class="label">TYPE</td><td>${escapeHtml(scriptType)}</td></tr>
               <tr>
                 <td class="label">ADDRESS</td>
-                <td>${addresses.length ? addresses.map(addressLink).join('<br>') : '<span class="subtle">No address</span>'}</td>
+                <td>
+                  ${addresses.length
+                    ? addresses.map(addressLink).join('<br>')
+                    : '<span class="subtle">No address</span>'}
+                </td>
               </tr>
-              <tr><td class="label">SCRIPT</td><td class="value">${out.scriptPubKey?.hex || ''}</td></tr>
+              <tr><td class="label">SCRIPT</td><td class="value">${escapeHtml(out.scriptPubKey?.hex || '')}</td></tr>
             </table>
           </div>
         `;
-      }).join('')}
+      }).join('') : '<div class="empty-state">No outputs</div>'}
     `);
 
-    history.replaceState(null, '', `/tx/${tx.txid}`);
+    setRoute(`/tx/${tx.txid}`);
   } catch {
     setDetails('<h3>TRANSACTION NOT FOUND</h3>');
   }
@@ -192,11 +225,12 @@ async function loadAddress(address) {
           <h3>ADDRESS</h3>
           <div class="subtle">${short(address, 14, 10)}</div>
         </div>
+
         <div class="status-good">ACTIVE</div>
       </div>
 
       <table class="data-table">
-        <tr><td class="label">ADDRESS</td><td class="value">${address}</td></tr>
+        <tr><td class="label">ADDRESS</td><td class="value">${escapeHtml(address)}</td></tr>
         <tr><td class="label">BALANCE</td><td>${th3(info.balance)}</td></tr>
         <tr><td class="label">RECEIVED</td><td>${th3(info.received)}</td></tr>
         <tr><td class="label">TX COUNT</td><td>${Array.isArray(txs) ? txs.length : 0}</td></tr>
@@ -204,9 +238,11 @@ async function loadAddress(address) {
       </table>
 
       <h3 style="margin-top:22px">UTXOS</h3>
+
       ${Array.isArray(utxos) && utxos.length ? utxos.map((u) => `
         <div class="tx-card">
           <div class="tx-card-title">${th3(u.amount)}</div>
+
           <table class="data-table compact">
             <tr><td class="label">TXID</td><td>${txLink(u.txid)}</td></tr>
             <tr><td class="label">VOUT</td><td>${u.vout}</td></tr>
@@ -216,14 +252,15 @@ async function loadAddress(address) {
       `).join('') : '<div class="empty-state">No spendable UTXO</div>'}
 
       <h3 style="margin-top:22px">TRANSACTIONS</h3>
+
       ${Array.isArray(txs) && txs.length ? txs.slice().reverse().map((tx) => `
-        <div class="block-item" onclick="loadTx('${tx}')">
-          ${tx}
+        <div class="block-item" onclick="loadTx('${escapeHtml(tx)}')">
+          ${escapeHtml(tx)}
         </div>
       `).join('') : '<div class="empty-state">No transactions yet</div>'}
     `);
 
-    history.replaceState(null, '', `/address/${address}`);
+    setRoute(`/address/${address}`);
   } catch (e) {
     console.error(e);
     setDetails('<h3>ADDRESS NOT FOUND</h3>');
