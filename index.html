@@ -4,39 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#030712">
-<title>TH3 // NETWORK_CORE</title>
+<meta name="theme-color" content="#020617">
+<title>TH3 Explorer</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="app-wrapper">
+  <div class="main-container">
+    <header class="glass-box explorer-header">
+      <div>
+        <h1>TH3 Explorer</h1>
+        <p class="header-subtitle">Blocks, transactions, addresses and UTXO</p>
+      </div>
+      <div class="status-pill" id="networkStatus">● Loading</div>
+    </header>
 
-<div class="main-container">
+    <section class="glass-box search-bar">
+      <input id="searchInput" placeholder="Search block height, txid or address" autocomplete="off">
+      <button id="searchBtn">Search</button>
+    </section>
 
-<header class="glass-box">
-<h1>TH3 // NETWORK_CORE</h1>
-<div class="status-pill">● ACTIVE_SYNC</div>
-</header>
+    <section class="stats-row">
+      <div class="stat-card"><span>Height</span><strong id="statHeight">-</strong></div>
+      <div class="stat-card"><span>Peers</span><strong id="statPeers">-</strong></div>
+      <div class="stat-card"><span>Difficulty</span><strong id="statDifficulty">-</strong></div>
+    </section>
 
-<section class="glass-box search-bar">
-<input id="searchInput" placeholder="SEARCH BLOCK / TX / ADDRESS" autocomplete="off">
-<button id="searchBtn">EXECUTE</button>
-</section>
+    <div class="grid-layout">
+      <div class="glass-box" id="blocksContainer">
+        <h3>Latest Blocks</h3>
+      </div>
 
-<div class="grid-layout">
-
-<div class="glass-box" id="blocksContainer">
-<h3>LATEST_BLOCKS</h3>
-</div>
-
-<div class="glass-box" id="blockDetails">
-<h3>SYSTEM_READY</h3>
-</div>
-
-</div>
-
+      <div class="glass-box" id="blockDetails">
+        <h3>System Ready</h3>
+        <p class="empty-text">Search for a block, transaction or address.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="/app.js"></script>
-
 </body>
 </html>
