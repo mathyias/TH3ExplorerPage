@@ -181,7 +181,7 @@ async function loadAddress(address){
 
     const [infoRes, historyRes, utxoRes] = await Promise.all([
       fetch(`${API}/api/address/${address}`),
-      fetch(`${API}/api/address/${address}/history?limit=50`)
+      fetch(`${API}/api/address/${address}/history?limit=50`),
       fetch(`${API}/api/address/${address}/utxos`)
     ]);
 
