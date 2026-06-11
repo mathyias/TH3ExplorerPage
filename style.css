@@ -441,3 +441,16 @@ button{
     word-break:break-word;
   }
 }
+
+/* Remove underline from explorer brand link */
+.explorer-brand,
+.explorer-brand:hover,
+.explorer-brand:focus,
+.explorer-brand:visited {
+  text-decoration: none !important;
+}
+
+.explorer-brand h1,
+.explorer-brand .header-subtitle {
+  text-decoration: none !important;
+}
