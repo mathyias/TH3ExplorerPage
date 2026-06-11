@@ -355,3 +355,16 @@ button{
     overflow-wrap:anywhere;
   }
 }
+
+/* Cache-safe final logo sizing */
+.explorer-brand img {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+@media (max-width: 720px) {
+  .explorer-brand img {
+    width: 46px !important;
+    height: 46px !important;
+  }
+}
