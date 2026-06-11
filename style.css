@@ -368,3 +368,76 @@ button{
     height: 46px !important;
   }
 }
+
+/* Final explorer navigation and mobile polish */
+.explorer-brand{
+  color:inherit;
+  text-decoration:none;
+}
+
+.explorer-brand img{
+  width:58px !important;
+  height:58px !important;
+}
+
+@media(max-width:720px){
+  .app-wrapper{
+    padding:14px;
+  }
+
+  .main-container{
+    width:100%;
+    max-width:520px;
+    margin-inline:auto;
+  }
+
+  .glass-box{
+    border-radius:20px;
+  }
+
+  .explorer-header{
+    text-align:center;
+  }
+
+  .explorer-brand{
+    width:100%;
+    justify-content:center;
+  }
+
+  .explorer-brand img{
+    width:46px !important;
+    height:46px !important;
+  }
+
+  .explorer-brand h1{
+    font-size:34px;
+  }
+
+  .search-bar{
+    padding:14px;
+  }
+
+  .stats-row{
+    gap:10px;
+  }
+
+  .stat-card{
+    min-height:88px;
+  }
+
+  .grid-layout{
+    gap:14px;
+  }
+
+  #blocksContainer,
+  #blockDetails{
+    overflow:hidden;
+  }
+
+  .hash,
+  .mono,
+  code{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+}
