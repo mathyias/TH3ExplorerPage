@@ -238,7 +238,7 @@ function runSearch(){
   if(!value) return;
 
   if(/^\d+$/.test(value)) return loadBlock(value);
-  if(/^T[a-zA-Z0-9]{25,40}$/.test(value)) return loadAddress(value);
+  if(/^TH3[a-zA-Z0-9]{25,60}$/.test(value)) return loadAddress(value);
   if(/^[a-fA-F0-9]{64}$/.test(value)) return loadBlockByHash(value);
 
   setDetails('<div class="empty-state">Invalid input</div>');
