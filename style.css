@@ -454,3 +454,44 @@ button{
 .explorer-brand .header-subtitle {
   text-decoration: none !important;
 }
+
+
+.social-strip {
+  width: min(720px, calc(100% - 36px));
+  margin: 42px auto 24px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.social-strip a {
+  min-height: 40px;
+  padding: 9px 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, .68);
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.social-strip a:hover {
+  border-color: rgba(78,234,255,.44);
+}
+
+.social-strip span {
+  width: 24px;
+  height: 24px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #4eeaff;
+  color: #020617;
+  font-size: 11px;
+  font-weight: 950;
+}
