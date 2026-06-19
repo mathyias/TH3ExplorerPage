@@ -193,11 +193,13 @@ a{
 }
 
 .story strong{
-  width:86px;
+  width:92px;
   overflow:hidden;
+  min-height:18px;
   color:rgba(245,247,251,.92);
-  font-size:13px;
-  font-weight:600;
+  font-size:12px;
+  font-weight:700;
+  line-height:18px;
   text-align:center;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -264,6 +266,7 @@ a{
 
 .hero-card{
   min-height:322px;
+  position:relative;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -274,6 +277,123 @@ a{
   background:
     linear-gradient(180deg,rgba(5,9,12,.08),rgba(5,9,12,.86)),
     url("/brand/media/th3-banner.png") center/cover no-repeat;
+}
+
+.hero-slide{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:18px;
+  color:inherit;
+  background:
+    linear-gradient(180deg,rgba(5,9,12,.08),rgba(5,9,12,.86)),
+    url("/brand/media/th3-banner.png") center/cover no-repeat;
+  opacity:0;
+  transform:translateX(22px);
+  pointer-events:none;
+  transition:opacity .5s ease, transform .5s ease;
+}
+
+.hero-slide.is-active{
+  opacity:1;
+  transform:translateX(0);
+  pointer-events:auto;
+}
+
+.hero-slide::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:
+    linear-gradient(180deg,rgba(5,9,12,.06),rgba(5,9,12,.82)),
+    radial-gradient(circle at 24% 28%,rgba(132,243,234,.22),transparent 18rem);
+  pointer-events:none;
+}
+
+.hero-slide::after{
+  position:absolute;
+  right:18px;
+  bottom:60px;
+  z-index:0;
+  color:rgba(255,255,255,.12);
+  font-size:42px;
+  font-weight:900;
+  line-height:.9;
+  text-align:right;
+  pointer-events:none;
+}
+
+.hero-slide-2{
+  background:
+    radial-gradient(circle at 18% 22%,rgba(0,208,132,.34),transparent 17rem),
+    radial-gradient(circle at 82% 12%,rgba(255,255,255,.16),transparent 16rem),
+    linear-gradient(135deg,#101827 0%,#111827 48%,#08251c 100%);
+}
+
+.hero-slide-2::before{
+  background:
+    linear-gradient(180deg,rgba(5,9,12,.10),rgba(5,9,12,.84)),
+    repeating-linear-gradient(90deg,transparent 0 34px,rgba(0,208,132,.12) 34px 35px),
+    repeating-linear-gradient(0deg,transparent 0 34px,rgba(255,255,255,.07) 34px 35px);
+}
+
+.hero-slide-2::after{
+  content:"Coin\A Ranking";
+  color:rgba(0,208,132,.20);
+}
+
+.hero-slide-3{
+  background:
+    radial-gradient(circle at 20% 18%,rgba(71,209,217,.32),transparent 16rem),
+    radial-gradient(circle at 82% 78%,rgba(104,119,255,.24),transparent 16rem),
+    linear-gradient(135deg,#101827 0%,#172033 48%,#111827 100%);
+}
+
+.hero-slide-3::before{
+  background:
+    linear-gradient(180deg,rgba(5,9,12,.08),rgba(5,9,12,.84)),
+    linear-gradient(135deg,transparent 0 42%,rgba(71,209,217,.18) 42% 43%,transparent 43% 100%),
+    repeating-linear-gradient(0deg,transparent 0 28px,rgba(255,255,255,.07) 28px 29px);
+}
+
+.hero-slide-3::after{
+  content:"LiveCoin\A Watch";
+  color:rgba(71,209,217,.20);
+}
+
+.hero-slide > *{
+  position:relative;
+  z-index:1;
+}
+
+
+.hero-dots{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  z-index:2;
+  display:flex;
+  gap:7px;
+}
+
+.hero-dots span{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.42);
+  transition:background .3s ease, transform .3s ease;
+}
+
+.hero-dots span.is-active{
+  background:linear-gradient(135deg,var(--aqua),var(--gold));
+  transform:scale(1.2);
+}
+
+.livewatch-ring{
+  font-size:16px;
 }
 
 .badge{
@@ -678,12 +798,12 @@ a{
 
   .stories{
     width:min(1060px,calc(100% - 40px));
-    height:112px;
-    min-height:112px;
+    height:124px;
+    min-height:124px;
     margin:14px auto 0;
     justify-content:center;
-    gap:26px;
-    padding:8px 0 10px;
+    gap:24px;
+    padding:8px 0 18px;
     overflow:visible;
   }
 
