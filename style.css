@@ -193,11 +193,11 @@ a{
 }
 
 .story strong{
-  width:92px;
+  width:104px;
   overflow:hidden;
   min-height:18px;
   color:rgba(245,247,251,.92);
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
   line-height:18px;
   text-align:center;
@@ -374,26 +374,32 @@ a{
   position:absolute;
   right:18px;
   bottom:18px;
-  z-index:2;
+  z-index:10;
   display:flex;
   gap:7px;
+  pointer-events:auto;
 }
 
-.hero-dots span{
-  width:8px;
-  height:8px;
+.hero-dots button{
+  width:12px;
+  height:12px;
+  border:0;
+  padding:0;
   border-radius:999px;
-  background:rgba(255,255,255,.42);
-  transition:background .3s ease, transform .3s ease;
+  background:rgba(255,255,255,.48);
+  cursor:pointer;
+  transition:background .3s ease, transform .3s ease, box-shadow .3s ease;
 }
 
-.hero-dots span.is-active{
+.hero-dots button.is-active{
   background:linear-gradient(135deg,var(--aqua),var(--gold));
-  transform:scale(1.2);
+  box-shadow:0 0 0 4px rgba(132,243,234,.12);
+  transform:scale(1.16);
 }
 
-.livewatch-ring{
-  font-size:16px;
+.livecoinwatch-ring svg{
+  width:44px;
+  height:44px;
 }
 
 .badge{

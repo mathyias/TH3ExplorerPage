@@ -59,8 +59,15 @@
       <strong>CoinRanking</strong>
     </a>
     <a class="story" href="https://www.livecoinwatch.com/price/TH3Chain-TH3" target="_blank" rel="noreferrer">
-      <span class="story-ring livewatch-ring">LCW</span>
-      <strong>LiveWatch</strong>
+      <span class="story-ring livecoinwatch-ring" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false">
+          <circle cx="24" cy="24" r="19" fill="#111827"/>
+          <circle cx="24" cy="24" r="13" fill="none" stroke="#47d1d9" stroke-width="4"/>
+          <path d="M24 12v12l8 5" fill="none" stroke="#f8fbff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 32h5l4-7 4 4 7-11" fill="none" stroke="#efd89a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <strong>LiveCoinWatch</strong>
     </a>
     <a class="story" href="https://api.th3chain.cloud/" target="_blank" rel="noreferrer">
       <span class="story-ring">API</span>
@@ -109,7 +116,7 @@
             <p>TH3Chain is now listed on LiveCoinWatch with supply, markets and explorer references.</p>
           </div>
         </a>
-        <div class="hero-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
+        <div class="hero-dots" aria-label="News slides"><button class="is-active" type="button" aria-label="Network news"></button><button type="button" aria-label="CoinRanking news"></button><button type="button" aria-label="LiveCoinWatch news"></button></div>
       </div>
     </section>
 
@@ -173,18 +180,33 @@
 
 <script>
 function initHeroNews(){
-  const slides = Array.from(document.querySelectorAll('.hero-slide'));
-  const dots = Array.from(document.querySelectorAll('.hero-dots span'));
-  if(!slides.length) return;
+  const sliders = document.querySelectorAll('.hero-slider');
+  sliders.forEach((slider) => {
+    const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+    const dots = Array.from(slider.querySelectorAll('.hero-dots button'));
+    if(!slides.length || !dots.length) return;
 
-  let index = 0;
-  const setActive = (next) => {
-    index = next % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
-    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
-  };
+    let index = Math.max(0, slides.findIndex((slide) => slide.classList.contains('is-active')));
+    let timer;
+    const setActive = (next) => {
+      index = (next + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+    };
+    const start = () => {
+      clearInterval(timer);
+      timer = setInterval(() => setActive(index + 1), 5000);
+    };
 
-  setInterval(() => setActive(index + 1), 5000);
+    dots.forEach((dot, i) => dot.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setActive(i);
+      start();
+    }));
+    setActive(index);
+    start();
+  });
 }
 
 initHeroNews();
